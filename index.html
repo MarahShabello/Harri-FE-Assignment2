@@ -4,98 +4,96 @@
     <meta charset="utf-8">
     <title>Countries</title>
     <link href="index.css" rel="stylesheet">
+    <script src="index.js"></script>
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+
     <!--  Bootstrap 5  -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href=”https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css” rel=”stylesheet”/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
 </head>
 <body class="bg-light">
 
-<header class="navbar bg-body-tertiary py-2">
-    <div class="container">
-        <h1>Where in the world?</h1>
-        <button class="btn btn-light-bg-subtle" type="button">
-            <i class="bi bi-moon"></i>
+<header class="navbar bg-white py-4 py-md-3 shadow-sm">
+    <div class="container justify-content-between">
+        <h1 class="fs-2 fw-bold">Where in the world?</h1>
+        <button class="btn btn-light-bg-subtle fw-bold" id="theme" type="button">
+            <i class="bi bi-moon" id="theme-icon"></i>
             Dark Mode
         </button>
     </div>
 </header>
 
 <div class="container">
-    <div class="row row-cols-1 row-cols-md-2 g-1">
-        <div class="col">
-            <div class="input-group">
-        <span class="input-group-append">
-                    <button class="btn btn-outline-secondary bg-white border border-end-0 ms-n5" type="button">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </span>
-                <input aria-label="Search" class=" border me-2" placeholder="Search for a country ..." type="search">
+    <div class="row row-cols-1 row-cols-md-2 justify-content-between g-5 my-0">
+        <div class="col-12 col-md-5">
+            <div class="input-group bg-white border-0 shadow-sm rounded-2 px-2">
+                <i class="bi bi-search text-secondary py-3 px-4 w-auto"></i>
+                <input aria-label="Search" class="border-0 py-3 ps-3 fs-6 col-8 fw-semibold"
+                       placeholder="Search for a country ..." type="search">
             </div>
         </div>
-        <div class="col">
-            <div class="dropdown">
-                <button aria-expanded="false" class="btn bg-white dropdown-toggle border border-2"
-                        data-bs-toggle="dropdown"
-                        type="button">
+        <div class="col-7 col-md-auto">
+            <div class="dropdown shadow-sm w-100">
+                <button aria-expanded="false" class="btn bg-white dropdown-toggle py-3 px-4 w-100 fw-semibold"
+                        data-bs-toggle="dropdown" type="button">
                     Filter by Region
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Africa</a></li>
-                    <li><a class="dropdown-item" href="#">America</a></li>
-                    <li><a class="dropdown-item" href="#">Asia</a></li>
-                    <li><a class="dropdown-item" href="#">Europe</a></li>
-                    <li><a class="dropdown-item" href="#">Oceania</a></li>
+                <ul class="dropdown-menu border-0 shadow-sm py-3 px-3 w-100">
+                    <li><a class="dropdown-item fw-semibold" href="#">Africa</a></li>
+                    <li><a class="dropdown-item fw-semibold" href="#">America</a></li>
+                    <li><a class="dropdown-item fw-semibold" href="#">Asia</a></li>
+                    <li><a class="dropdown-item fw-semibold" href="#">Europe</a></li>
+                    <li><a class="dropdown-item fw-semibold" href="#">Oceania</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
+
 <div class="container">
-    <div class="row row-cols-1 row-cols-md-4 g-5">
+
+    <div class="card-group row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 mt-0">
         <div class="col">
 
-            <div class="card h-100 border border-2 rounded-5">
-                <a class="anchor" href="country.html">
-                    <img alt="Flag of Germany" class="card-img-top" src="images/de.svg">
-                    <!-- h-50 -->
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
+                <a class="anchor text-decoration-none" href="country.html">
+                    <img alt="Flag of Germany" class="card-img-top w-100 object-fit-cover" src="images/de.svg">
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-4">Germany</h5>
+                        <h5 class="card-title pb-4 fw-bold">Germany</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                        <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">81,770,900</p>
+                                        <p class="fw-light">81,770,900</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Europe</p>
+                                        <p class="fw-light">Europe</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Berlin</p>
+                                        <p class="fw-light">Berlin</p>
                                     </div>
                                 </div>
                             </li>
@@ -106,39 +104,39 @@
 
         </div>
         <div class="col">
-            <div class="card h-100 border border-2 rounded-5">
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
                 <a class="anchor" href="#">
-                    <img alt="Flag of USA" class="card-img-top" src="images/us.svg">
+                    <img alt="Flag of USA" class="card-img-top w-100 object-fit-cover" src="images/us.svg">
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-2">United States of America</h5>
+                        <h5 class="card-title pb-4 fw-bold">United States of America</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">323,947,000</p>
+                                        <p class="fw-light">323,947,000</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">Americas</p>
+                                        <p class="fw-light">Americas</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">Washington, D.C.</p>
+                                        <p class="fw-light">Washington,D.C.</p>
                                     </div>
                                 </div>
                             </li>
@@ -148,39 +146,39 @@
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 border border-2 rounded-5">
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
                 <a class="anchor" href="#">
-                    <img alt="Flag of Brazil" class="card-img-top" src="images/br.svg">
+                    <img alt="Flag of Brazil" class="card-img-top w-100 object-fit-cover" src="images/br.svg">
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-2">Brazil</h5>
+                        <h5 class="card-title pb-4 fw-bold">Brazil</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">206,135,893</p>
+                                        <p class="fw-light">206,135,893</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">Americas</p>
+                                        <p class="fw-light">Americas</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">Brasilia</p>
+                                        <p class="fw-light">Brasilia</p>
                                     </div>
                                 </div>
                             </li>
@@ -190,39 +188,39 @@
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 border border-2 rounded-5">
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
                 <a class="anchor" href="#">
-                    <img alt="Flag of Iceland" class="card-img-top" src="images/is.svg">
+                    <img alt="Flag of Iceland" class="card-img-top w-100 object-fit-cover" src="images/is.svg">
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-2">Iceland</h5>
+                        <h5 class="card-title pb-4 fw-bold">Iceland</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">334,300</p>
+                                        <p class="fw-light">334,300</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">Europe</p>
+                                        <p class="fw-light">Europe</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                <p class="info-col2">Reykjavik</p>
+                                        <p class="fw-light">Reykjavik</p>
                                     </div>
                                 </div>
                             </li>
@@ -232,39 +230,39 @@
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 border border-2 rounded-5">
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
                 <a class="anchor" href="#">
-                    <img alt="Flag of Afghanistan" class="card-img-top" src="images/af.svg">
+                    <img alt="Flag of Afghanistan" class="card-img-top w-100 object-fit-cover" src="images/af.svg">
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-2">Afghanistan</h5>
+                        <h5 class="card-title pb-4 fw-bold">Afghanistan</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                        <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">27,657,145</p>
+                                        <p class="fw-light">27,657,145</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Asia</p>
+                                        <p class="fw-light">Asia</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Kabul</p>
+                                        <p class="fw-light">Kabul</p>
                                     </div>
                                 </div>
                             </li>
@@ -275,39 +273,40 @@
         </div>
 
         <div class="col">
-            <div class="card h-100 border border-2 rounded-5">
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
                 <a class="anchor" href="#">
-                    <img alt="Flag of Aland Islands" class="card-img-top" src="images/ax.svg"/>
+                    <img alt="Flag of Aland Islands" class="card-img-top w-100 object-fit-cover"
+                         src="images/ax.svg"/>
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-2">Aland Islands</h5>
+                        <h5 class="card-title pb-4 fw-bold">Aland Islands</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                        <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">28,875</p>
+                                        <p class="fw-light">28,875</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Europe</p>
+                                        <p class="fw-light">Europe</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Mariehamn</p>
+                                        <p class="fw-light">Mariehamn</p>
                                     </div>
                                 </div>
                             </li>
@@ -317,39 +316,39 @@
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 border border-2 rounded-5">
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
                 <a class="anchor" href="#">
-                    <img alt="Flag of Albania" class="card-img-top" src="images/al.svg"/>
+                    <img alt="Flag of Albania" class="card-img-top w-100 object-fit-cover" src="images/al.svg"/>
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-2">Albania</h5>
+                        <h5 class="card-title pb-4 fw-bold">Albania</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                        <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">2,886,026</p>
+                                        <p class="fw-light">2,886,026</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Europe</p>
+                                        <p class="fw-light">Europe</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Tirana</p>
+                                        <p class="fw-light">Tirana</p>
                                     </div>
                                 </div>
                             </li>
@@ -359,39 +358,39 @@
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 border border-2 rounded-5">
+            <div class="card h-100 border-0 rounded-2 shadow-sm">
                 <a class="anchor" href="#">
-                    <img alt="Flag of Algeria" class="card-img-top" src="images/dz.svg"/>
+                    <img alt="Flag of Algeria" class="card-img-top w-100 object-fit-cover" src="images/dz.svg"/>
                     <div class="card-body p-4">
-                        <h5 class="card-title pb-2">Algeria</h5>
+                        <h5 class="card-title pb-4 fw-bold">Algeria</h5>
                         <ul class="list-unstyled">
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-3">
-                                        <p class="info-col1">Population:</p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Population:</p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">40,400,000</p>
+                                        <p class="fw-light">40,400,000</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Region: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Region: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Africa</p>
+                                        <p class="fw-light">Africa</p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-item">
                                 <div class="row row-cols-2 g-0">
-                                    <div class="col-2">
-                                        <p class="info-col1">Capital: </p>
+                                    <div class="col-auto pe-1">
+                                        <p class="fw-semibold">Capital: </p>
                                     </div>
                                     <div class="col">
-                                        <p class="info-col2">Algiers</p>
+                                        <p class="fw-light">Algiers</p>
                                     </div>
                                 </div>
                             </li>
@@ -403,28 +402,8 @@
     </div>
 </div>
 
+<script crossorigin="anonymous"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<!--    <div class="input-group">-->
-<!--        <span class="input-group-append">-->
-<!--                    <button class="btn btn-outline-secondary bg-white border border-end-0 ms-n5" type="button">-->
-<!--                        <i class="bi bi-search"></i>-->
-<!--                    </button>-->
-<!--                </span>-->
-<!--        <input aria-label="Search" class="form-control border" placeholder="Search for a country ..." type="search">-->
-<!--    </div>-->
-<!--    <div class="dropdown">-->
-<!--        <button aria-expanded="false" class="btn bg-white dropdown-toggle border border-2"-->
-<!--                data-bs-toggle="dropdown"-->
-<!--                type="button">-->
-<!--            Filter by Region-->
-<!--        </button>-->
-<!--        <ul class="dropdown-menu">-->
-<!--            <li><a class="dropdown-item" href="#">Africa</a></li>-->
-<!--            <li><a class="dropdown-item" href="#">America</a></li>-->
-<!--            <li><a class="dropdown-item" href="#">Asia</a></li>-->
-<!--            <li><a class="dropdown-item" href="#">Europe</a></li>-->
-<!--            <li><a class="dropdown-item" href="#">Oceania</a></li>-->
-<!--        </ul>-->
-<!--    </div>-->

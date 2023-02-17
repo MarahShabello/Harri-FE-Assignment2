@@ -1,26 +1,4 @@
 *{
     box-sizing: content-box;
-}
-
-.flag{
-    width: 100%;
-    object-fit: cover;
-}
-
-i{
-    margin-right: 15px;
-}
-
-.country-name{
-    font-family: NunitoSans-ExtraBold;
-}
-.details-col1 {
-    font-family: NunitoSans-Bold;
-}
-.details-col2 {
-    font-family: NunitoSans-Regular;
-}
-.border-countries{
-    font-family: NunitoSans-Bold;
-    font-size: 16px;
+    font-family: 'Nunito Sans', sans-serif;
 }
