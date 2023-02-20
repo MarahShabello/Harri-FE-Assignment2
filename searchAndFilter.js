@@ -15,8 +15,7 @@ regionFilter.onchange = (evt) => {
         const myCountry = country.innerHTML.toLowerCase().trim();
         console.log("myCountry: " + myCountry);
         if (myCountry == selectedRegion) {
-            const countryRegion = document.getElementsByClassName('country-region');
-            console.log("Country Region: " + countryRegion);
+            console.log("Same Region");
         }
     })
 }
