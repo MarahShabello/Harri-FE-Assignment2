@@ -1,7 +1,7 @@
 // ------------------------------------------------------ FILTER ------------------------------------------------------
-const continentSelect = document.getElementById('filter');
-continentSelect.onchange = (evt) => {
-    const selectedRegion = continentSelect.value;
+const regionFilter = document.getElementById('filter');
+regionFilter.onchange = (evt) => {
+    const selectedRegion = regionFilter.value;
     console.log("Selected region: " + selectedRegion);
     if (selectedRegion === "no-filter") {
         console.log("Inside if statement");
@@ -11,17 +11,15 @@ continentSelect.onchange = (evt) => {
     const availableCountries = Array.from(document.querySelectorAll('#region'));
     console.log("Available countries: " + availableCountries);
     console.log(window["region"].innerHTML);
-    // availableCountries.forEach(country => {
-    //     const myCountry = country.innerHTML.toLowerCase().trim();
-    //     // console.log("My country: " + myCountry);
-    //     // if (myCountry == continentSelect.value || continentSelect.value === "all") {
-    //     //     country.closest(".allCountries").classList.remove("hide-card")
-    //     // } else {
-    //     //     country.closest(".allCountries").classList.add("hide-card")
-    //     // }
-    // })
+    availableCountries.forEach(country => {
+        const myCountry = country.innerHTML.toLowerCase().trim();
+        console.log("myCountry: " + myCountry);
+        if (myCountry == selectedRegion) {
+            const countryRegion = document.getElementsByClassName('country-region');
+            console.log("Country Region: " + countryRegion);
+        }
+    })
 }
-
 
 // ------------------------------------------------------ SEARCH ------------------------------------------------------
 const searchBar = document.getElementById('search');
