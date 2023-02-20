@@ -15,14 +15,13 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-
-<header class="navbar bg-white py-4 py-md-3 shadow-sm">
+<body class="light">
+<header class="navbar py-4 py-md-3 shadow-sm">
     <div class="container justify-content-between">
         <h1 class="fs-2 fw-bold">Where in the world?</h1>
-        <button class="btn btn-light-bg-subtle fw-bold" id="theme" type="button">
-            <i class="bi bi-moon" id="theme-icon"></i>
-            Dark Mode
+        <button class="btn fw-bold" id="theme-btn" type="button">
+            <i class="bi bi-moon theme-color" id="theme-icon"></i>
+            <span class="theme-mode theme-color">Dark Mode</span>
         </button>
     </div>
 </header>
@@ -30,379 +29,41 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-2 justify-content-between g-5 my-0">
         <div class="col-12 col-md-5">
-            <div class="input-group bg-white border-0 shadow-sm rounded-2 px-2">
-                <i class="bi bi-search text-secondary py-3 px-4 w-auto"></i>
-                <input aria-label="Search" class="border-0 py-3 ps-3 fs-6 col-8 fw-semibold"
+            <div class="input-group border-0 shadow-sm rounded-2 px-2 search">
+                <i class="bi bi-search py-3 px-4 w-auto"></i>
+                <input aria-label="Search" class="border-0 py-3 ps-3 fs-6 col-8 fw-semibold search" id="search"
                        placeholder="Search for a country ..." type="search">
             </div>
         </div>
         <div class="col-7 col-md-auto">
-            <div class="dropdown shadow-sm w-100">
-                <button aria-expanded="false" class="btn bg-white dropdown-toggle h-100 py-3 px-4 w-100 fw-semibold"
-                        data-bs-toggle="dropdown" type="button">
-                    Filter by Region
-                </button>
-                <ul class="dropdown-menu border-0 shadow-sm py-3 px-3 w-100">
-                    <li><a class="dropdown-item fw-semibold" href="#">Africa</a></li>
-                    <li><a class="dropdown-item fw-semibold" href="#">America</a></li>
-                    <li><a class="dropdown-item fw-semibold" href="#">Asia</a></li>
-                    <li><a class="dropdown-item fw-semibold" href="#">Europe</a></li>
-                    <li><a class="dropdown-item fw-semibold" href="#">Oceania</a></li>
-                </ul>
-            </div>
+
+            <select class="dropdown border-2 rounded-2 shadow-sm w-100 theme-color h-100 py-3 px-4 fw-semibold fs-6" id="filter">
+                <option class="dropdown-item fw-semibold" disabled hidden selected value="none">Filter by Region</option>
+                <option class="dropdown-item fw-semibold " value="no-filter">No filter</option>
+                <option class="dropdown-item fw-semibold " value="africa">Africa</option>
+                <option class="dropdown-item fw-semibold " value="america">America</option>
+                <option class="dropdown-item fw-semibold " value="asia">Asia</option>
+                <option class="dropdown-item fw-semibold " value="europe">Europe</option>
+                <option class="dropdown-item fw-semibold " value="oceania">Oceania</option>
+            </select>
+
         </div>
     </div>
 </div>
-
 
 <div class="container">
+    <div class="card-group row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 mt-0" id="country-card">
 
-    <div class="card-group row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 mt-0">
-        <div class="col">
-
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor text-decoration-none" href="country.html">
-                    <img alt="Flag of Germany" class="card-img-top w-100 object-fit-cover" src="images/de.svg">
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">Germany</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">81,770,900</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Europe</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Berlin</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-
-        </div>
-        <div class="col">
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor" href="#">
-                    <img alt="Flag of USA" class="card-img-top w-100 object-fit-cover" src="images/us.svg">
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">United States of America</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">323,947,000</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Americas</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Washington,D.C.</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor" href="#">
-                    <img alt="Flag of Brazil" class="card-img-top w-100 object-fit-cover" src="images/br.svg">
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">Brazil</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">206,135,893</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Americas</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Brasilia</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor" href="#">
-                    <img alt="Flag of Iceland" class="card-img-top w-100 object-fit-cover" src="images/is.svg">
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">Iceland</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">334,300</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Europe</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Reykjavik</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor" href="#">
-                    <img alt="Flag of Afghanistan" class="card-img-top w-100 object-fit-cover" src="images/af.svg">
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">Afghanistan</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">27,657,145</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Asia</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Kabul</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor" href="#">
-                    <img alt="Flag of Aland Islands" class="card-img-top w-100 object-fit-cover"
-                         src="images/ax.svg"/>
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">Aland Islands</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">28,875</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Europe</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Mariehamn</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor" href="#">
-                    <img alt="Flag of Albania" class="card-img-top w-100 object-fit-cover" src="images/al.svg"/>
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">Albania</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">2,886,026</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Europe</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Tirana</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 border-0 rounded-2 shadow-sm">
-                <a class="anchor" href="#">
-                    <img alt="Flag of Algeria" class="card-img-top w-100 object-fit-cover" src="images/dz.svg"/>
-                    <div class="card-body p-4">
-                        <h5 class="card-title pb-4 fw-bold">Algeria</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Population:</p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">40,400,000</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Region: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Africa</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="row row-cols-2 g-0">
-                                    <div class="col-auto pe-1">
-                                        <p class="fw-semibold">Capital: </p>
-                                    </div>
-                                    <div class="col">
-                                        <p class="fw-light">Algiers</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </a>
-            </div>
-        </div>
     </div>
 </div>
 
+<script src="switchTheme.js"></script>
+<script src="fetchCountries.js"></script>
+<script src="countryDetails.js"></script>
+<script src="searchAndFilter.js"></script>
 <script crossorigin="anonymous"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
