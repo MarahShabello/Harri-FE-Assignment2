@@ -1,10 +1,23 @@
-const themeBtn = document.getElementById("theme-btn");
-const themeIcon = document.getElementById("theme-icon");
-const themeMode = document.getElementsByClassName("theme-mode")[0];
+function initTheme() {
+    const themeBtn = document.getElementById("theme-btn");
+    const themeIcon = document.getElementById("theme-icon");
+    const themeMode = document.getElementsByClassName("theme-mode")[0];
 
-themeBtn.addEventListener("click", switchTheme);
+    themeBtn.addEventListener("click", function() {
+        switchTheme(themeIcon, themeMode);
+    });
 
-function switchTheme() {
+    window.onload = function checkTheme() {
+        const theme = localStorage.getItem("theme");
+        document.body.className = theme;
+        if (theme === "dark") {
+            themeIcon.classList.replace("bi-moon", "bi-sun");
+            themeMode.textContent = "Light Mode";
+        }
+    }
+}
+
+function switchTheme(themeIcon, themeMode) {
     let theme = localStorage.getItem("theme");
     themeMode.textContent = `${theme.charAt(0).toUpperCase() + theme.slice(1)} Mode`;
     if (theme === "dark"){
@@ -19,11 +32,4 @@ function switchTheme() {
     localStorage.setItem("theme", theme);
 }
 
-window.onload = function checkTheme() {
-    const theme = localStorage.getItem("theme");
-    if (theme === "dark") {
-        document.body.className = theme;
-        themeIcon.classList.replace("bi-moon", "bi-sun");
-        themeMode.textContent = "Light Mode";
-    }
-}
+initTheme();
