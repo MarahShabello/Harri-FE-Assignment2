@@ -58,7 +58,6 @@ select > option {
     font-size: 12px;
 }
 
-
 .anchor{
     text-decoration: none;
     color: var(--theme-font-color);
