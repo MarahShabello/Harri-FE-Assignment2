@@ -1,68 +1,74 @@
 async function initCountries() {
     let countriesArray = [];
-    let selectedRegion = "";
-    let countryCard = document.getElementById('country-card');
-    const countries_api = `https://restcountries.com/v3.1/all`;
+    let debounceInput = debounce();
+    let selectedRegion = 'no-filter';
+    let countryCards = document.getElementById('country-cards');
     const searchBar = document.getElementById('search');
     const regionFilter = document.getElementById('filter');
+    const countries_api = `https://restcountries.com/v3.1/all`;
 
-    searchBar.addEventListener("search", function() {
-        loadAndDisplayCountries(countryCard, countries_api);
-    });
+    searchBar.addEventListener('input', () => {
+        debounceInput(async () => {
+            const searchValue = searchBar.value;
+            if (searchValue.length === 0) {
+                countriesArray = await loadAndDisplayCountries(countries_api);
+                renderCountries(countryCards, filterCountries(selectedRegion, countriesArray, countryCards));
+            } else {
+                countriesArray = await searchByName(searchValue)
+                renderCountries(countryCards, filterCountries(selectedRegion, countriesArray, countryCards));
+            }
+        }, 300);
+    })
 
-    await searchBar.addEventListener("keyup", async function () {
-        const searchValue = searchBar.value;
-        if (searchValue.length === 0) {
-            countriesArray = await loadAndDisplayCountries(countryCard, countries_api);
-        } else {
-            countriesArray = await searchByName(searchValue, countryCard);
-        }
-    });
+    regionFilter.addEventListener('change', () => {
+        debounceInput(async () => {
+            selectedRegion = regionFilter.value;
+            countriesArray = await filterCountries(selectedRegion, countriesArray, countryCards);
+            renderCountries(countryCards, countriesArray);
+        }, 300);
+    })
 
-    regionFilter.onchange = async (event) => {
-        selectedRegion = event.target.value;
-        countriesArray = await filterByRegion(selectedRegion, countriesArray, countryCard);
-    }
-
-    countriesArray = await loadAndDisplayCountries(countryCard, countries_api);
+    countriesArray = await loadAndDisplayCountries(countries_api);
+    renderCountries(countryCards, countriesArray);
 }
 
-async function loadAndDisplayCountries(countryCard, countries_api) {
-    let countries = [];
-    countryCard.innerHTML = '';
-    await fetch(countries_api)
-        .then(async response => {
-            const data = await response.json();
-            data.forEach(country => {
-                countries.push(country);
-                renderCountries(countryCard, country);
+function loadAndDisplayCountries(countries_api) {
+    return new Promise((resolve, reject) => {
+        let countries = [];
+        fetch(countries_api)
+            .then(async response => {
+                const data = await response.json();
+                countries = Array.from(data);
+                resolve(countries);
             })
-        })
-        .catch(error => {
-            console.log("ERROR!");
-            console.error(error);
-        });
-    return countries;
+            .catch(error => {
+                console.log("ERROR!");
+                console.error(error);
+            });
+    });
 }
 
 function renderCountries(elementID, data) {
-    let {name, flags, population, region, capital, cca3} = data;
+    elementID.innerHTML = '';
+    Promise.resolve(data)
+        .then(result => result.forEach(country => {
+            let {name, flags, population, region, capital, cca3} = country;
 
-    elementID.innerHTML += `<div class="col">
-        <div class="card h-100 border-0 rounded-2 shadow-sm">
+            elementID.innerHTML += `<div class="col">
+        <div class="card h-100 border-0 rounded-3 shadow-sm">
             <a class="anchor text-decoration-none" href="country.html?id=${cca3}" id="country-anchor">
                 <img alt="Flag" class="card-img-top w-100 object-fit-cover" src=${flags.svg}>
-                <div class="card-body p-4">
-                    <h5 class="card-title pb-4 fw-bold g-0 country-name">${name.common}</h5>
+                <div class="card-body p-4 rounded-bottom-2">
+                    <h5 class="card-title pb-3 fw-bold g-0 country-name">${name.common}</h5>
                     <ul class="list-unstyled">
-                        <li class="list-item pb-2">
+                        <li class="list-item pb-1">
                             <span class="fw-semibold pe-1">Population:</span>${population.toLocaleString()}
                         </li>
-                        <li class="list-item pb-2">
+                        <li class="list-item pb-1">
                             <span class="fw-semibold">Region:</span>
                             <span class="country-region">${region}</span>
                         </li>
-                        <li class="list-item pb-2">
+                        <li class="list-item">
                             <span class="fw-semibold pe-1">Capital:</span>${capital}
                         </li>
                        </ul>
@@ -70,55 +76,48 @@ function renderCountries(elementID, data) {
                </a>
         </div>
     </div>`;
+        }))
 }
 
 // -------------------------- FILTER --------------------------
-async function filterByRegion(selectedRegion, countriesArray, elementID) {
-    debounce(250);
-    let array = [];
-    elementID.innerHTML = '';
-    await countriesArray.forEach(country => {
-        const {region} = country;
-        if (selectedRegion === "no-filter") {
-            array.push(country);
-            renderCountries(elementID, country);
-        } else if (region === selectedRegion) {
-            array.push(country);
-            renderCountries(elementID, country)
-        }
-    })
-    return array;
+function filterCountries(selectedRegion, countriesArray, elementID) {
+    return new Promise((resolve, reject) => {
+        let array = [];
+        elementID.innerHTML = '';
+        countriesArray.forEach(country => {
+            const {region} = country;
+            if (selectedRegion === "no-filter" || region === selectedRegion) {
+                array.push(country);
+            }
+        })
+        resolve(array);
+    });
 }
 
 // -------------------------- SEARCH --------------------------
-async function searchByName(searchValue, countryCard) {
-    debounce(250);
-    let countries = [];
-    let searchURL = `https://restcountries.com/v3.1/name/${searchValue}`;
-    await fetch(searchURL)
-        .then(async response =>
-            await response.json()
-        )
-        .then(data => {
-            countryCard.innerHTML = '';
-            data.forEach(country => {
-                countries.push(country);
-                renderCountries(countryCard, country);
+function searchByName(searchValue) {
+    return new Promise((resolve, reject) => {
+        let countries = [];
+        let searchURL = `https://restcountries.com/v3.1/name/${searchValue}`;
+        fetch(searchURL)
+            .then(async response => await response.json())
+            .then(data => {
+                countries = Array.from(data);
+                resolve(countries);
             })
-        })
-    console.log(`Countries: ${countries}`)
-    return countries;
+            .catch(error => {
+                console.log("ERROR!");
+                console.error(error);
+            });
+    });
 }
 
 // ------------------------- DEBOUNCE -------------------------
-const debounce = (delay) => {
+function debounce() {
     let delayTime;
-    return function () {
-        const later = () => {
-            clearTimeout(delayTime);
-        };
+    return function (callback, delay) {
         clearTimeout(delayTime);
-        delayTime = setTimeout(later, delay);
+        delayTime = setTimeout(callback, delay);
     };
 }
 
