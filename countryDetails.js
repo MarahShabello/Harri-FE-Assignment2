@@ -2,35 +2,40 @@ async function initCountryDetails() {
     let url = new URLSearchParams(window.location.search);
     let id = url.get('id');
     const countryDetails = document.getElementById('country-details');
-    await fetchDetails(countryDetails, assignCodeAPI(id));
+    let data = await fetchDetails(countryDetails, assignCodeAPI(id));
+    renderDetails(countryDetails, data);
 }
 
 async function fetchDetails(countryDetails, codeAPI) {
-    await fetch(codeAPI)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            renderDetails(countryDetails, data[0]);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    return new Promise((resolve, reject) => {
+        let countryDetails = [];
+        fetch(codeAPI)
+            .then(async response => {
+                const data = await response.json();
+                countryDetails = Array.from(data);
+                resolve(countryDetails);
+            })
+            .catch(error => {
+                console.log("ERROR!");
+                console.error(error);
+            });
+    });
 }
 
 function renderDetails(elementID, data) {
-    let {name, flags, population, region, subregion, capital, borders} = data;
+    data.forEach(country => {
+        let {name, flags, population, region, subregion, capital, borders} = country;
 
-    const nativeName = data.name.nativeName[Object.keys(data.name.nativeName)[0]].official;
-    const tld = splitBetweenElements(Object.values(data.tld));
-    let currenciesArray = [];
-    Object.keys(data.currencies).forEach(currency => {
-        currenciesArray.push(data.currencies[currency].name);
-    })
-    currenciesArray = splitBetweenElements(currenciesArray);
-    const languages = splitBetweenElements(Object.values(data.languages));
+        const nativeName = country.name.nativeName[Object.keys(country.name.nativeName)[0]].official;
+        const tld = splitBetweenElements(Object.values(country.tld));
+        let currenciesArray = [];
+        Object.keys(country.currencies).forEach(currency => {
+            currenciesArray.push(country.currencies[currency].name);
+        })
+        currenciesArray = splitBetweenElements(currenciesArray);
+        const languages = splitBetweenElements(Object.values(country.languages));
 
-    elementID.innerHTML = `<div class="col">
+        elementID.innerHTML = `<div class="col">
     <img alt="Flag of Germany" class="align-self-center h-100 w-100 border-0 object-fit-cover"
          src="${flags.svg}"/>
 </div>
@@ -84,21 +89,22 @@ function renderDetails(elementID, data) {
     </div>
 </div>`;
 
-    if (borders) {
-        borders = Object.values(data.borders);
-        displayBorders(borders, elementID)
-    } else {
-        const border = document.createTextNode("None");
-        document.getElementById("border-countries").appendChild(border);
-    }
+        if (borders) {
+            borders = Object.values(country.borders);
+            displayBorders(borders, elementID);
+        } else {
+            const border = document.createTextNode('None');
+            document.getElementById('border-countries').appendChild(border);
+        }
+    })
 }
 
-async function displayBorders(borders, countryDetails) {
-    await Promise.all([
+function displayBorders(borders, elementID) {
+    Promise.all([
         borders.forEach(country => {
-            fetchBorder(countryDetails, assignCodeAPI(country))
+            fetchBorder(elementID, assignCodeAPI(country))
         })
-    ])
+    ]).then(r => {return r})
 }
 
 function fetchBorder(countryDetails, api) {
@@ -109,17 +115,18 @@ function fetchBorder(countryDetails, api) {
         .then((data) => {
             let {name} = data[0];
             name = name.common;
-            const border = document.createElement("button");
+            const border = document.createElement('button');
             const borderStyle = ["border", "border-2", "rounded-1", "shadow-sm", "py-1", "px-3", "me-2", "mb-2", "theme-color"];
             border.classList.add(...borderStyle);
-            const anchorCountry = document.createElement("a");
-            anchorCountry.style.textDecoration = "none";
+            const anchorCountry = document.createElement('a');
+            anchorCountry.style.textDecoration = 'none';
             anchorCountry.innerText = name;
-            anchorCountry.addEventListener('click', async function () {
-                await fetchDetails(countryDetails, `https://restcountries.com/v3.1/name/${name}`)
+            anchorCountry.addEventListener("click", async function () {
+                let countryBorder = await fetchDetails(countryDetails, `https://restcountries.com/v3.1/name/${name}`);
+                renderDetails(countryDetails, countryBorder);
             })
             border.appendChild(anchorCountry);
-            document.getElementById("border-countries").appendChild(border);
+            document.getElementById('border-countries').appendChild(border);
         })
 }
 
