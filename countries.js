@@ -1,5 +1,6 @@
 let favouriteCountriesElement = document.getElementById('favourite-countries');
 let codeAPI = '';
+
 async function initCountries() {
     let countriesArray = [];
     let selectedRegion = 'no-filter';
@@ -82,10 +83,11 @@ function renderCountries(elementID, data) {
                         </li>
                        </ul>
                    </div>
-               </a>
-                <button class="theme-color d-block d-lg-none d-md-none border-0 ms-auto me-3 mb-2" type="button" onclick="clickButton(event, '${cca3}')">
-                    <i class="bi bi-star-fill"></i>
+                                   <button class="fav-btn theme-color d-block d-lg-none d-md-none border-0 ms-auto me-3 mb-2" type="button" onclick="clickStar(event, '${cca3}')">
+                    <i class='bi bi-star-fill'></i>
                 </button> 
+               </a>
+
         </div>
     </div>`;
         }))
@@ -134,8 +136,7 @@ function debounce() {
 }
 
 // ------------------------- FAVOURITES -------------------------
-
-function clickButton(event, code) {
+function clickStar(event, code) {
     if (event.target.style.color === 'orange') {
         event.target.style.color = 'lightgray';
         removeFromFavourites(event, code);
@@ -156,6 +157,8 @@ function clickButton(event, code) {
 
 
 function drag(event, code) {
+    let el = event.target.getElementsByClassName('bi-star-fill')[0];
+    el.style.color = 'orange';
     event.target.style.opacity = '0.5';
     codeAPI = `https://restcountries.com/v3.1/alpha/${code}`;
 }
@@ -230,7 +233,7 @@ function getFromLocalStorage(key) {
     try {
         return JSON.parse(localStorage.getItem(key));
     } catch {
-        return "ERROR - undefined";
+        console.log("Error");
     }
 }
 
@@ -238,7 +241,7 @@ function removeFromLocalStorage(key) {
     try {
         localStorage.removeItem(key);
     } catch {
-        alert(`Not found in the favourites list`);
+        alert(`Not found in favourites list`);
     }
 }
 
