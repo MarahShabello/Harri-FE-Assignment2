@@ -1,7 +1,9 @@
+let favouriteCountriesElement = document.getElementById('favourite-countries');
+let codeAPI = '';
 async function initCountries() {
     let countriesArray = [];
-    let debounceInput = debounce();
     let selectedRegion = 'no-filter';
+    let debounceInput = debounce();
     let countryCards = document.getElementById('country-cards');
     const searchBar = document.getElementById('search');
     const regionFilter = document.getElementById('filter');
@@ -23,13 +25,20 @@ async function initCountries() {
     regionFilter.addEventListener('change', () => {
         debounceInput(async () => {
             selectedRegion = regionFilter.value;
-            countriesArray = await filterCountries(selectedRegion, countriesArray, countryCards);
-            renderCountries(countryCards, countriesArray);
+            if (selectedRegion === "Favourites") {
+                renderCountries(countryCards, getFavourites())
+            } else {
+                countriesArray = await filterCountries(selectedRegion, countriesArray, countryCards);
+                renderCountries(countryCards, countriesArray);
+            }
+
         }, 300);
     })
 
     countriesArray = await loadAndDisplayCountries(countries_api);
     renderCountries(countryCards, countriesArray);
+
+    renderFav(getFavourites())
 }
 
 function loadAndDisplayCountries(countries_api) {
@@ -45,7 +54,7 @@ function loadAndDisplayCountries(countries_api) {
                 console.log("ERROR!");
                 console.error(error);
             });
-    });
+    })
 }
 
 function renderCountries(elementID, data) {
@@ -55,25 +64,28 @@ function renderCountries(elementID, data) {
             let {name, flags, population, region, capital, cca3} = country;
 
             elementID.innerHTML += `<div class="col">
-        <div class="card h-100 border-0 rounded-3 shadow-sm">
-            <a class="anchor text-decoration-none" href="country.html?id=${cca3}" id="country-anchor">
-                <img alt="Flag" class="card-img-top w-100 object-fit-cover" src=${flags.svg}>
-                <div class="card-body p-4 rounded-bottom-2">
+        <div class="card border border-0 rounded-3 shadow-sm theme-color" draggable="true" ondragstart="drag(event, '${cca3}')" ondragend="dragEnd(event)">
+            <a class="anchor h-100 text-decoration-none" href="country.html?id=${cca3}">
+                <img alt="${name.common} Flag" class="card-img-top w-100 object-fit-cover rounded-top-3" src=${flags.svg}>
+                <div class="card-body p-4 border-0 rounded-bottom-0 pb-2">
                     <h5 class="card-title pb-3 fw-bold g-0 country-name">${name.common}</h5>
-                    <ul class="list-unstyled">
+                    <ul class="list-unstyled mb-0">
                         <li class="list-item pb-1">
                             <span class="fw-semibold pe-1">Population:</span>${population.toLocaleString()}
-                        </li>
+                        </li> 
                         <li class="list-item pb-1">
                             <span class="fw-semibold">Region:</span>
                             <span class="country-region">${region}</span>
                         </li>
-                        <li class="list-item">
+                        <li class="list-item mb-0 mb-sm-0 mb-md-3 border-0 rounded-bottom-5">
                             <span class="fw-semibold pe-1">Capital:</span>${capital}
                         </li>
                        </ul>
                    </div>
                </a>
+                <button class="theme-color d-block d-lg-none d-md-none border-0 ms-auto me-3 mb-2" type="button" onclick="clickButton(event, '${cca3}')">
+                    <i class="bi bi-star-fill"></i>
+                </button> 
         </div>
     </div>`;
         }))
@@ -119,6 +131,132 @@ function debounce() {
         clearTimeout(delayTime);
         delayTime = setTimeout(callback, delay);
     };
+}
+
+// ------------------------- FAVOURITES -------------------------
+
+function clickButton(event, code) {
+    if (event.target.style.color === 'orange') {
+        event.target.style.color = 'lightgray';
+        removeFromFavourites(event, code);
+    } else {
+        event.target.style.color = 'orange';
+        favouriteCountriesElement.innerHTML = `<h5 class="fw-bold mb-4">Favourites</h5>`;
+        let data = fetchFavourite(`https://restcountries.com/v3.1/alpha/${code}`);
+        Promise.resolve(data)
+            .then(result => result.forEach(country => {
+                    let {cca3} = country;
+                    setInLocalStorage(cca3, country);
+                    setInLocalStorage('code', cca3);
+                })
+            )
+            .then(r => renderFav(getFavourites()))
+    }
+}
+
+
+function drag(event, code) {
+    event.target.style.opacity = '0.5';
+    codeAPI = `https://restcountries.com/v3.1/alpha/${code}`;
+}
+
+function dragEnd(event) {
+    event.target.style.opacity = '1.0';
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+    event.target.style.border = '2px solid #27ae60';
+}
+
+function drop(event) {
+    event.preventDefault();
+    event.target.style.border = 'none';
+
+    favouriteCountriesElement.innerHTML = `<h5 class="fw-bold mb-4">Favourites</h5>`;
+    let data = fetchFavourite(codeAPI);
+    Promise.resolve(data)
+        .then(result => result.forEach(country => {
+                let {cca3} = country;
+                setInLocalStorage(cca3, country);
+                setInLocalStorage('code', cca3);
+            })
+        ).then(r => renderFav(getFavourites())
+    )
+}
+
+function fetchFavourite(api) {
+    return new Promise((resolve, reject) => {
+        fetch(api)
+            .then(async response => await response.json())
+            .then(data => {
+                resolve(data);
+            })
+            .catch(error => {
+                console.log("ERROR!");
+                console.error(error);
+            });
+    });
+}
+
+function renderFav(data) {
+    Promise.resolve(data)
+        .then(result => result.forEach(country => {
+            let {name, flags, cca3} = country;
+            favouriteCountriesElement.innerHTML += `<div class="col mb-3">
+                <img alt="Flag" class="fav-img rounded-2 object-fit-cover me-1" src="${flags.svg}">
+                <span class="fw-bold">${name.common}</span>
+                <button aria-label="Remove" class="border-0 rounded-5 ms-auto me-0" type="button" onclick="removeFromFavourites(event, '${cca3}')">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>`;
+        }))
+}
+
+function setInLocalStorage(key, value) {
+    try {
+        let val = getFromLocalStorage(key);
+        if (!(val === value)) {
+            localStorage.setItem(key, JSON.stringify(value));
+        } else {
+            alert(`Already in favourites list`);
+        }
+    } catch {
+        console.log("Error");
+    }
+}
+
+function getFromLocalStorage(key) {
+    try {
+        return JSON.parse(localStorage.getItem(key));
+    } catch {
+        return "ERROR - undefined";
+    }
+}
+
+function removeFromLocalStorage(key) {
+    try {
+        localStorage.removeItem(key);
+    } catch {
+        alert(`Not found in the favourites list`);
+    }
+}
+
+function removeFromFavourites(event, countryCode) {
+    removeFromLocalStorage(countryCode);
+    let favCountries = getFavourites();
+    favouriteCountriesElement.innerHTML = `<h5 class="fw-bold mb-4">Favourites</h5>`;
+    renderFav(favCountries);
+}
+
+function getFavourites() {
+    let favouriteCountriesArray = [];
+    Object.keys(localStorage).forEach(key => {
+        if (!(key === "theme") && !(key === "code")) {
+            favouriteCountriesArray.push(getFromLocalStorage(key));
+        }
+    })
+    return favouriteCountriesArray;
 }
 
 initCountries();

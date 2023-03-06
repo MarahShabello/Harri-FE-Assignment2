@@ -29,7 +29,7 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-2 justify-content-between g-5 my-0">
         <div class="col-12 col-md-5">
-            <div class="input-group border-0 shadow-sm rounded-2 px-2 search">
+            <div class="input-group border-0 shadow-sm rounded-2 search">
                 <i class="bi bi-search py-3 px-4 w-auto"></i>
                 <input aria-label="Search" class="border-0 py-3 ps-3 fs-6 col-8 fw-semibold search" id="search"
                        placeholder="Search for a country ..." type="search">
@@ -37,16 +37,17 @@
         </div>
         <div class="col-7 col-md-auto">
 
-            <select class="dropdown border-2 rounded-2 shadow-sm w-100 theme-color h-100 py-3 px-4 fw-semibold fs-6"
+            <select aria-label="Filter by"
+                    class="dropdown border-2 rounded-2 shadow-sm w-100 theme-color h-100 py-3 px-4 fw-semibold fs-6"
                     id="filter">
-                <option class="dropdown-item fw-semibold" disabled hidden selected value="none">Filter by Region
-                </option>
+                <option class="dropdown-item fw-semibold" disabled hidden selected value="none">Filter by</option>
                 <option class="dropdown-item fw-semibold" value="no-filter">No filter</option>
                 <option class="dropdown-item fw-semibold" value="Africa">Africa</option>
                 <option class="dropdown-item fw-semibold" value="Americas">America</option>
                 <option class="dropdown-item fw-semibold" value="Asia">Asia</option>
                 <option class="dropdown-item fw-semibold" value="Europe">Europe</option>
                 <option class="dropdown-item fw-semibold" value="Oceania">Oceania</option>
+                <option class="dropdown-item fw-semibold" value="Favourites">Favourites</option>
             </select>
 
         </div>
@@ -54,8 +55,17 @@
 </div>
 
 <div class="container">
-    <div class="card-group row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5 mt-0" id="country-cards">
+    <div class="row p-0">
+        <div class="col-3 g-0 mt-5 border-2 rounded-2 p-3 shadow-sm d-none d-sm-none d-md-inline theme-color"
+             id="favourite-countries" ondragover="allowDrop(event)" ondrop="drop(event)">
+            <h5 class="fw-bold mb-4">Favourites</h5>
 
+        </div>
+        <div class="col">
+            <div class="card-group row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5 mt-0" id="country-cards">
+
+            </div>
+        </div>
     </div>
 </div>
 

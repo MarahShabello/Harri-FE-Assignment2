@@ -74,3 +74,15 @@ select > option {
 .card-img-top{
     height: 180px;
 }
+
+.fav-img{
+    height: 25px;
+    width: 45px;
+}
+.bi-star-fill {
+    position: relative;
+    font-size: 25px;
+}
+.bi-star-fill{
+    color: lightgray;
+}
