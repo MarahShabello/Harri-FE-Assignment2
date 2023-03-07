@@ -19,6 +19,10 @@ function initTheme() {
 
 function switchTheme(themeIcon, themeMode) {
     let theme = localStorage.getItem("theme");
+    console.log(`Theme: ${theme}`)
+    if (theme === null) {
+        theme = 'light';
+    }
     themeMode.textContent = `${theme.charAt(0).toUpperCase() + theme.slice(1)} Mode`;
     if (theme === "dark"){
         themeIcon.classList.replace("bi-sun", "bi-moon")
