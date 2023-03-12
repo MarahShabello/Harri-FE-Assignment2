@@ -1,28 +1,24 @@
+import {setInLocalStorage, getFromLocalStorage} from "./countries.js";
+
+let theme = getFromLocalStorage('theme') || 'light';
+const themeBtn = document.getElementById("theme-btn");
+const themeIcon = document.getElementById("theme-icon");
+const themeMode = document.getElementsByClassName("theme-mode")[0];
+
 function initTheme() {
-    const themeBtn = document.getElementById("theme-btn");
-    const themeIcon = document.getElementById("theme-icon");
-    const themeMode = document.getElementsByClassName("theme-mode")[0];
+    checkTheme();
+    setTheme();
+}
 
-    themeBtn.addEventListener("click", function() {
-        switchTheme(themeIcon, themeMode);
-    });
-
-    window.onload = function checkTheme() {
-        const theme = localStorage.getItem("theme");
-        document.body.className = theme;
-        if (theme === "dark") {
-            themeIcon.classList.replace("bi-moon", "bi-sun");
-            themeMode.textContent = "Light Mode";
-        }
+function checkTheme() {
+    document.body.className = theme;
+    if (theme === "dark") {
+        themeIcon.classList.replace("bi-moon", "bi-sun");
+        themeMode.textContent = "Light Mode";
     }
 }
 
-function switchTheme(themeIcon, themeMode) {
-    let theme = localStorage.getItem("theme");
-    console.log(`Theme: ${theme}`)
-    if (theme === null) {
-        theme = 'light';
-    }
+function switchTheme(callback) {
     themeMode.textContent = `${theme.charAt(0).toUpperCase() + theme.slice(1)} Mode`;
     if (theme === "dark"){
         themeIcon.classList.replace("bi-sun", "bi-moon")
@@ -33,7 +29,15 @@ function switchTheme(themeIcon, themeMode) {
         theme = "dark"
     }
     document.body.className = theme;
-    localStorage.setItem("theme", theme);
+    callback()
 }
+
+function setTheme() {
+    setInLocalStorage('theme', theme);
+}
+
+themeBtn.addEventListener("click", function() {
+    switchTheme(setTheme);
+});
 
 initTheme();
