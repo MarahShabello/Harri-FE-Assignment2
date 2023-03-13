@@ -37,7 +37,6 @@ export function renderCountries(data, starCountry) {
             </div>`;
 
             card.querySelector('button').addEventListener('click', (event) => {
-                // clickStar(event)
                 if (event.target.style.color === 'orange') {
                     event.target.style.color = 'lightgray';
                 } else {
@@ -55,6 +54,7 @@ export function renderCountries(data, starCountry) {
     }
 }
 
+// -------------------------- FILTER --------------------------
 export function onFilter(callback) {
     regionFilter.addEventListener('change', () => {
         debounceInput(() => {
@@ -64,6 +64,7 @@ export function onFilter(callback) {
     })
 }
 
+// -------------------------- SEARCH --------------------------
 export function onSearch(callback) {
     searchBar.addEventListener('input', () => {
         debounceInput(() => {
@@ -73,6 +74,7 @@ export function onSearch(callback) {
     })
 }
 
+// -------------------------- DRAG --------------------------
 function dragCountry(country) {
     event.target.style.opacity = '0.5';
     let {cca3} = country;
@@ -83,6 +85,7 @@ function dragEnd(event) {
     event.target.style.opacity = '1.0';
 }
 
+// -------------------------- DROP --------------------------
 export function onDrop(dropCountry) {
     favouriteCountriesElement.addEventListener('dragover', (event) => {
         allowDrop(event)
@@ -103,14 +106,6 @@ function drop(event) {
     event.target.style.border = 'none';
 }
 
-// function clickStar(event) {
-//     if (event.target.style.color === 'orange') {
-//         event.target.style.color = 'lightgray';
-//     } else {
-//         event.target.style.color = 'orange';
-//     }
-// }
-
 export function renderFav(data, onRemove) {
     favouriteCountriesElement.innerHTML = `<h4 class="fw-bold mb-4">Favourites</h4>`;
     data.forEach(country => {
@@ -123,9 +118,10 @@ export function renderFav(data, onRemove) {
             <button aria-label="Remove" class="border-0 rounded-5 ms-auto me-0" type="button">
                 <i class="bi bi-x-lg"></i>
             </button>`;
+
         let starElement = document.getElementById(`${cca3}`);
-        console.log(`starElement: ${starElement.innerHTML}`)
         starElement.style.color = 'orange';
+
         favouriteCountry.querySelector('button').addEventListener('click', () => {
             let {cca3} = country;
             let starElement = document.getElementById(`${cca3}`);
