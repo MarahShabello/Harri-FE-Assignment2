@@ -75,24 +75,6 @@ export function filterCountries(selectedRegion, countries) {
     return array;
 }
 
-// -------------------------- SEARCH --------------------------
-// function searchByName(searchValue) {
-//     return new Promise((resolve, reject) => {
-//         let countries = [];
-//         let searchURL = `https://restcountries.com/v3.1/name/${searchValue}`;
-//         fetch(searchURL)
-//             .then(async response => await response.json())
-//             .then(data => {
-//                 countries = Array.from(data);
-//                 resolve(countries);
-//             })
-//             .catch(error => {
-//                 console.log("ERROR!");
-//                 console.error(error);
-//             });
-//     });
-// }
-
 // ------------------------- FAVOURITES -------------------------
 function findFavCountries(country, code) {
     const {cca3} = country;
