@@ -71,13 +71,17 @@ select > option {
     border-color: var(--theme-bg-elements);
 }
 
+ul{
+    font-size: 14px;
+}
+
 .card-img-top{
-    height: 180px;
+    height: 165px;
 }
 
 .fav-img{
-    height: 25px;
-    width: 40px;
+    height: 22px;
+    width: 38px;
 }
 .bi-star-fill {
     position: relative;
